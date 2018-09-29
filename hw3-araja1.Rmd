@@ -37,6 +37,7 @@ leaflet() %>%
   addPolygons(data = states, color = "#FF0000", group="states", popup = ~NAME)%>%
   # For roads its often not a bad idea to set opacity to 1 cause they look a little funky at the intersections and stuff. No pts off though.
   addPolylines(data = roads, color = "#3333FF",group="roads", popup = ~FULLNAME)%>%
+  # There are an awful lot of points here, I would recommend using the clustering option for such large datasets in the future.
   addCircleMarkers(data = starbucks, lng = ~long, lat = ~lat, radius = 1.5, color = "#00FF00",group="starbucks", popup = ~name)%>%
   addLayersControl(
     # Don't be afraid of capitalizing your names for Groups. I get using baseGroups instead of layerGroups here, I just want to affirm that there is a difference. Basegroups only show up one at a time, and layerGroups will overlap.
