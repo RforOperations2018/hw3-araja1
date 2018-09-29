@@ -25,20 +25,21 @@ states <- readOGR("./gz_2010_us_040_00_5m/gz_2010_us_040_00_5m.shp", layer = "gz
 roads <- readOGR("./primary_roads/tl_2017_us_primaryroads.shp", layer ="tl_2017_us_primaryroads", GDAL1_integer64_policy = TRUE)
 
 starbucks <- read.csv("Starbucks.csv")
-
-
+# Nice
 ```
 
 ##Plotting tha data
 
 ```{r}
-
 leaflet() %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik,options = providerTileOptions(noWrap = TRUE)) %>%
-  addPolygons(data=states, color = "#FF0000", group="states", popup = ~NAME)%>%
-  addPolylines(data=roads, color = "#3333FF",group="roads", popup = ~FULLNAME)%>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, options = providerTileOptions(noWrap = TRUE)) %>%
+  # Spaces before/after "=" please and after commas (,)
+  addPolygons(data = states, color = "#FF0000", group="states", popup = ~NAME)%>%
+  # For roads its often not a bad idea to set opacity to 1 cause they look a little funky at the intersections and stuff. No pts off though.
+  addPolylines(data = roads, color = "#3333FF",group="roads", popup = ~FULLNAME)%>%
   addCircleMarkers(data = starbucks, lng = ~long, lat = ~lat, radius = 1.5, color = "#00FF00",group="starbucks", popup = ~name)%>%
   addLayersControl(
+    # Don't be afraid of capitalizing your names for Groups. I get using baseGroups instead of layerGroups here, I just want to affirm that there is a difference. Basegroups only show up one at a time, and layerGroups will overlap.
     baseGroups = c("starbucks", "roads", "states"),
     options = layersControlOptions(collapsed = FALSE)
   )
